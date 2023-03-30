@@ -5,7 +5,7 @@ My name: [Kal'tsit]
 
 My SUNet ID: [666]
 
-This lab took me about [INF] hours to do. I [did/did not] attend the lab session.
+This lab took me about [INF] hours to do. I [did] attend the lab session.
 
 My secret code from section 2.1 was: [343460]
 
