@@ -1,7 +1,5 @@
 #include "byte_stream.hh"
 
-#include <cstddef>
-
 // Dummy implementation of a flow-controlled in-memory byte stream.
 
 // For Lab 0, please replace with a real implementation that passes the
@@ -21,7 +19,7 @@ size_t ByteStream::write(const string &data) {
     for (auto c : data) {
         if (remaining_capacity() == 0)
             break;
-        _buffer.push(c);
+        _buffer.push_back(c);
         ++_written_size;
     }
     return _written_size - prev;
@@ -29,11 +27,11 @@ size_t ByteStream::write(const string &data) {
 
 //! \param[in] len bytes will be copied from the output side of the buffer
 string ByteStream::peek_output(const size_t len) const {
-    auto buf = _buffer;
     string ret;
+    auto it = _buffer.begin();
     for (size_t i = 0; i < len; i++) {
-        ret += buf.front();
-        buf.pop();
+        ret += *it;
+        ++it;
     }
     return ret;
 }
@@ -41,7 +39,7 @@ string ByteStream::peek_output(const size_t len) const {
 //! \param[in] len bytes will be removed from the output side of the buffer
 void ByteStream::pop_output(const size_t len) {
     for (size_t i = 0; i < len; i++)
-        _buffer.pop();
+        _buffer.pop_front();
     _read_size += len;
 }
 
@@ -52,7 +50,7 @@ std::string ByteStream::read(const size_t len) {
     string ret;
     for (size_t i = 0; i < len; i++) {
         ret += _buffer.front();
-        _buffer.pop();
+        _buffer.pop_front();
     }
     _read_size += len;
     return ret;
