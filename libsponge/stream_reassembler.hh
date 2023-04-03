@@ -3,8 +3,9 @@
 
 #include "byte_stream.hh"
 
-#include <cstdint>
+#include <cstddef>
 #include <string>
+#include <vector>
 
 //! \brief A class that assembles a series of excerpts from a byte stream (possibly out of order,
 //! possibly overlapping) into an in-order byte stream.
@@ -12,6 +13,9 @@ class StreamReassembler {
   private:
     // Your code here -- add private members as necessary.
 
+    std::vector<std::pair<char,bool>> _unassembled{}; // pair.first is the byte, pair.second is a flag whether contain a byte
+    size_t _eof_pos{SIZE_MAX};
+    size_t _unassembled_size{};
     ByteStream _output;  //!< The reassembled in-order byte stream
     size_t _capacity;    //!< The maximum number of bytes
 
